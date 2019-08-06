@@ -1,0 +1,6 @@
+﻿  Card.cpp
+  Player.cpp
+  TestPlayer.cpp
+c:\users\fourb\documents\github\cis150-summer2018-ciott\cis200-summer2019-ciott\playermodule\playermodule\testplayer.cpp(22): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  PlayerModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\CIS200-Summer2019-ciott\PlayerModule\Debug\PlayerModule.exe
