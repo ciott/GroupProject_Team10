@@ -1,0 +1,17 @@
+CIS200 - Group Project
+Plan: 8/8/2019
+Dealer will inherit attributes of player.
+Game will recieve bets from players
+and then set bets.
+AI player will always set the same bet.
+House play will utilize functions from Player class.
+
+Eric Charnesky Advice:
+The dealer has a hand of cards, and always goes last.
+If they have 16 or less, they will always hit.
+Once the dealeris done taking cards, the players who have
+not gone over 21 will win if their total is > than the
+dealer total. If they tie, they get their bet back and
+don't lose anything.
+
+
