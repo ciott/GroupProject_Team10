@@ -73,3 +73,19 @@ void Deck::AdditionalCards(GenericPlayer& aGenericPlayer)
             aGenericPlayer.Bust();
     }
 }
+
+
+
+//Reference https://codereview.stackexchange.com/questions/78710/oop-blackjack-in-c
+// Example below to initialize deck with 13 values of 4 suits
+Loading card into deck
+suit diamond = 0;
+suit heart = 1;
+suit club = 2;
+suit spade = 3;
+
+for (int value = 1; value < 13; value++) //Cycle through A->K
+    for (int suit = 0; suit < 3; suit++) //Assign each value with 4 suits
+        if (value == 11)
+            push_back Jack
+        stack<int>.push_back
