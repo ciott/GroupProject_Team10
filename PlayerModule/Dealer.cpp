@@ -55,12 +55,12 @@ void Dealer::deal(int num, int& aces, int &tot)
 int Dealer::getbet(int enterWallet)
 {
 		int bet;
-		cout << "You have $" << enterWallet << " enter your bet: ";
+		cout << "You have $" << enterWallet << ". Enter your bet: ";
 		cin >> bet;
 		while (bet > enterWallet)
 		{
 			cout << "You cannot bet more then you have!!!\n";
-			cout << "You have $" << enterWallet << " enter your bet: ";
+			cout << "You have $" << enterWallet << ". Enter your bet: ";
 			cin >> bet;
 		}
 		return bet;
