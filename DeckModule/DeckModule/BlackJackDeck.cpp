@@ -1,5 +1,9 @@
 #include "BlackJackDeck.h"
+#include <random>
+#include <algorithm>
+#include <stack>
 #include <vector>
+#include <ctime>
 #include "Card.h"
 
 using namespace std;
@@ -7,8 +11,7 @@ using namespace std;
 
 BlackJackDeck::BlackJackDeck()
 {
-
-	
+	initDeck();
 
 }
 
@@ -16,7 +19,7 @@ void BlackJackDeck::initDeck() {
 
 	// Make jack king queen ace
 
-	vector <Card> tempCards(52);
+	vector<Card> tempCards(deckSize);
 
 	int card = 0;
 	char suit;
@@ -32,10 +35,10 @@ void BlackJackDeck::initDeck() {
 			suit = 'D';
 			break;
 		case 2:
-			suit = 'S';
+			suit = 'H';
 			break;
 		case 3:
-			suit = 'H';
+			suit = 'S';
 			break;
 
 		}
@@ -45,24 +48,6 @@ void BlackJackDeck::initDeck() {
 		tempCards.at(card).setFace('A');
 		tempCards.at(card).setSuit(suit);
 		tempCards.at(card).setVal(1);
-		++card;
-
-		// A Card
-		tempCards.at(card).setFace('J');
-		tempCards.at(card).setSuit(suit);
-		tempCards.at(card).setVal(10);
-		++card;
-
-		// A Card
-		tempCards.at(card).setFace('K');
-		tempCards.at(card).setSuit(suit);
-		tempCards.at(card).setVal(10);
-		++card;
-
-		// A Card
-		tempCards.at(card).setFace('Q');
-		tempCards.at(card).setSuit(suit);
-		tempCards.at(card).setVal(10);
 		++card;
 
 		for (int symbol = 2; symbol < 11; ++symbol) {
@@ -82,64 +67,109 @@ void BlackJackDeck::initDeck() {
 			++card;
 		}
 
+		// A Card
+		tempCards.at(card).setFace('J');
+		tempCards.at(card).setSuit(suit);
+		tempCards.at(card).setVal(10);
+		++card;
+
+		// A Card
+		tempCards.at(card).setFace('K');
+		tempCards.at(card).setSuit(suit);
+		tempCards.at(card).setVal(10);
+		++card;
+
+		// A Card
+		tempCards.at(card).setFace('Q');
+		tempCards.at(card).setSuit(suit);
+		tempCards.at(card).setVal(10);
+		++card;
+
 		
 
 	}
 
-		
-	
+	shuffledCards = tempCards;
+}
 
-	/*
-	for (int card = 0; card < 4; ++card) {
+void BlackJackDeck::shuffle() {
 
-		tempCards.at(card).setFace('A');
+	srand(time(0));
 
-		switch (card) {
+	random_shuffle(shuffledCards.begin(), shuffledCards.end());
 
-		case 0:
-			tempCards.at(card).setSuit('C');
-			break;
+	initStack();
+}
 
-		case 1:
-			tempCards.at(card).setSuit('D');
-			break;
+void BlackJackDeck::addCard(Card addedCard) {
 
-		case 2:
-			tempCards.at(card).setSuit('H');
-			break;
+	shuffledCards.push_back(addedCard);
+	deckCards.push(addedCard);
 
-		case 3:
-			tempCards.at(card).setSuit('S');
-			break;
+}
 
-		default:
-			tempCards.at(card).setSuit('#');
+void BlackJackDeck::removeCard() {
 
-		}
+	shuffledCards.pop_back();
+	deckCards.pop();
 
-		for (int card = 4; card < 8; ++card) {
+	if (shuffledCards.size() < 30 && deckCards.size() < 30) {
 
-			tempCards.at(card).setFace('J');
-			tempCards.at(card).setSuit('C');
-		}
-		*/
+		shuffle();
+	}
+}
 
-		/*
-		tempCards.at(card).setFace('J');
-		tempCards.at(card).setFace('K');
-		tempCards.at(card).setFace('Q');
-		*/
+void BlackJackDeck::initStack() {
 
-	
+	// Empty the stack
+	while (deckCards.size() != 0) {
 
-	for (int card = 0; card < 52; ++card) {
+			deckCards.pop();
+	}
 
-		cout << "Card: " << card + 1 << " -> " << tempCards.at(card).getFace() 
-			<< tempCards.at(card).getSuit() << " >" << tempCards.at(card).getVal() << "< " << endl;
+	int size = shuffledCards.size();
+
+	// Check for potential duplicates
+	for (int card = 0; card < size; ++card) {
+
+			deckCards.push(shuffledCards.at(card));
+	}
+}
+
+void BlackJackDeck::peek() {
+
+	cout << "Deck Cards" << endl;
+	for (int card = 0; card < shuffledCards.size(); ++card) {
+
+		cout << "Card: " << card + 1 << " -> " << shuffledCards.at(card).getFace()
+			<< shuffledCards.at(card).getSuit() << " >" << shuffledCards.at(card).getVal() << "< " << endl;
 	}
 
 }
 
+int BlackJackDeck::getSize() {
+
+
+	return deckCards.size();
+}
+
+void BlackJackDeck::peekStack() {
+
+	int size = deckCards.size();
+
+	cout << "Stack Cards" << endl;
+
+	while (!(size <= 0)) {
+
+		cout << "Card: " << size << " -> " << deckCards.top().getFace()
+			<< deckCards.top().getSuit() << " >" << deckCards.top().getVal() << "< " << endl;
+		deckCards.pop();
+
+		--size;
+	}
+
+	initStack();
+}
 
 BlackJackDeck::~BlackJackDeck() {
 

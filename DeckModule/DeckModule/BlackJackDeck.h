@@ -14,13 +14,34 @@ public:
 	~BlackJackDeck();
 
 	// put back in private eventually
-	void initDeck();
+	
+	// put in private
+	void peek();
+	void peekStack();
+
+	void addCard(Card addedCard);
+	void removeCard();
+	void shuffle();
+	int getSize();
+	
+	Card takeCard() {
+
+		Card takenCard = deckCards.top();
+		removeCard();
+
+		return takenCard;
+	}
+
+	// Put in private
+	void initStack();
 
 private:
 
+	void initDeck();
 	
 
-	vector<Card> tempCards;
+	vector<Card> shuffledCards;
 	stack<Card> deckCards;
+	int deckSize = 52;
 };
 
