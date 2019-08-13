@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Dealer
+class Dealer :: public Player
 {
 private: 
 
