@@ -10,7 +10,7 @@ int main() {
 
 	Card One;
 	BlackJackDeck deck1;
-
+	deck1.initDeck();
 
 
 	system("pause");

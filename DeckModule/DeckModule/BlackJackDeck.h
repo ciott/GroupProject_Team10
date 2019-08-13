@@ -2,6 +2,7 @@
 
 #include "Card.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -12,8 +13,14 @@ public:
 	BlackJackDeck();
 	~BlackJackDeck();
 
+	// put back in private eventually
+	void initDeck();
+
 private:
 
+	
+
+	vector<Card> tempCards;
 	stack<Card> deckCards;
 };
 

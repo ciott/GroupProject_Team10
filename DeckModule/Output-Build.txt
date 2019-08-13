@@ -1,0 +1,4 @@
+﻿1>------ Build started: Project: DeckModule, Configuration: Debug Win32 ------
+1>BlackJackDeck.cpp
+1>DeckModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\DeckModule\Debug\DeckModule.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
