@@ -13,5 +13,6 @@ public:
 	void distCards(Player& P, BlackJackDeck& aDeck);
 	void distBet(Player& P);
 	void housePlays(BlackJackDeck& aDeck);
+
 };
 

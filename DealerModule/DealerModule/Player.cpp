@@ -137,6 +137,12 @@ void Player::seeCards() {
 	}
 }
 
+Card Player::topCard() {
+
+
+	return hand.at(0);
+}
+
 void Player::setName(string name, string surname) {
 
 	this->playerId = name + " " + surname;

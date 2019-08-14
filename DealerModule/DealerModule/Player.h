@@ -28,6 +28,8 @@ public:
 	void setName(string name, string surname);
 	string getName();
 
+	Card topCard();
+
 	void reset();
 
 private:
