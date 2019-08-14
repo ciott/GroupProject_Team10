@@ -7,10 +7,15 @@ using namespace std;
 int main() {
 
 	Card temp;
+	Card temp2;
 
 	temp.setSuit('C');
 	temp.setVal(10);
-	temp.setFace('F');
+	temp.setFace('K');
+
+	temp2.setSuit('D');
+	temp2.setVal(10);
+	temp2.setFace('J');
 
 	Player P1;
 
@@ -33,21 +38,37 @@ int main() {
 	cout << endl;
 
 	cout << "Setting a Card" << endl;
-	P1.setCards(temp);
+	P1.hitCards(temp);
+	P1.hitCards(temp2);
 
 	vector<Card> tempPair;
 
-	cout << "Seeing a Card" << endl;
-	tempPair = P1.getCards();
+	//FIX ME
+	cout << "Seeing a Cards" << endl;
+	//tempPair = P1.Cards();
 
 	cout << endl << "SEE CARD" << endl;
-	cout << "This is the face: " << tempPair.at(0).getFace() << endl;
-	cout << "This is the suit: " << tempPair.at(0).getSuit() << endl;
-	cout << "This is the value: " << tempPair.at(0).getVal() << endl;
-	cout << "This is the color: " << tempPair.at(0).getColor() << endl;
+	P1.seeCards();
+	cout << endl;
 
+	P1.reset();
+	cout << endl << "SEE CARD" << endl;
+	P1.seeCards();
+	cout << endl;
 
+	string tempName;
+	string tempSur;
 
+	cout << "ENTER PLAYER ID" << endl;
+	cin >> tempName;
+	cout << endl;
+	cin >> tempSur;
+	cout << endl;
+
+	P1.setName(tempName, tempSur);
+
+	cout << "PLAYER NAME: ";
+	cout << P1.getName();
 
 	system("pause");
 	return 0;

@@ -1,2 +1,4 @@
-﻿  DeckModule.cpp
+﻿  BlackJackDeck.cpp
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\deckmodule\deckmodule\blackjackdeck.cpp(97): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\deckmodule\deckmodule\blackjackdeck.cpp(142): warning C4018: '<': signed/unsigned mismatch
   DeckModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\DeckModule\Debug\DeckModule.exe

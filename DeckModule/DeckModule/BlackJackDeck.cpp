@@ -43,11 +43,10 @@ void BlackJackDeck::initDeck() {
 
 		}
 
-
 		// A Card
 		tempCards.at(card).setFace('A');
 		tempCards.at(card).setSuit(suit);
-		tempCards.at(card).setVal(1);
+		tempCards.at(card).setVal(11);
 		++card;
 
 		for (int symbol = 2; symbol < 11; ++symbol) {

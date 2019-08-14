@@ -15,18 +15,28 @@ public:
 	double getWallet();
 	void setWallet(int money);
 
-	void setCards(Card aCard);
-	vector<Card> getCards();
+	void hitCards(Card aCard);
+	vector<Card> giveCards();
 
 	int getScore();
 	void setScore(int newScore);
 
+	void setBet(double wager);
+	double getBet();
+
+	void seeCards();
+	void setName(string name, string surname);
+	string getName();
+
+	void reset();
+
 private:
 
-	double wallet = 0;
-	vector<Card> pair;
-	int score = 0;
-	double bet = 0;
+	double wallet = -1;
+	vector<Card> hand;
+	int score = -1;
+	double bet = -1;
+	string playerId = "NOBODY";
 
 };
 
