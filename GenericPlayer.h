@@ -12,18 +12,25 @@ using namespace std;
 
 class GenericPlayer : public Hand
 {
+private:
     friend ostream& operator << (ostream& os, const GenericPlayer& aGenericPlayer);
 
 public:
-    GenericPlayer(const string& name = "");
+    GenericPlayer(const string& name = "") : m_Name(name) {
+    }
 
-    virtual ~GenericPlayer();
+    virtual ~GenericPlayer() {
+    }
 
-    virtual bool IsHitting() const = 0;
+    virtual bool IsHitting() const = 0; //Whether CPU keeps hitting
 
-    bool IsBusted() const;
+    bool IsBusted() const{ //CPU hand total greater than 21
+    return (getTotal() > 21);
+    }
 
-    void Bust() const;
+    void Bust() const{ //CPU busts
+    cout << m_Name << " busted.\n";
+    }
 
 protected:
     string m_Name;
