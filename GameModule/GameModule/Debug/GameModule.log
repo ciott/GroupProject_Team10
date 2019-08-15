@@ -1,6 +1,7 @@
 ﻿  GameModule.cpp
 c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(98): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
-c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(309): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(308): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(360): warning C4018: '<': signed/unsigned mismatch
 c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(46): warning C4101: 'score': unreferenced local variable
 c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(48): warning C4101: 'money': unreferenced local variable
   GameModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\GameModule\Debug\GameModule.exe

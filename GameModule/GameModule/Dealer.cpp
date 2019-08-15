@@ -41,11 +41,6 @@ void Dealer::distBet(Player& P) {
 		holdMoney = holdMoney + P.getBet();
 		P.setWallet(holdMoney);
 	}
-	else if (P.getScore() == this->getScore()) {
-
-		holdMoney = holdMoney + (0.5 * P.getBet());
-		P.setWallet(holdMoney);
-	}
 }
 
 
