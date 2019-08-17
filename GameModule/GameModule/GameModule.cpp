@@ -8,6 +8,7 @@
 #include "BlackJackDeck.h"
 #include "Dealer.h"
 #include "Player.h"
+#include "ComputerPlayer.h"
 #include <iomanip>
 
 // Allow for a second round
@@ -22,11 +23,16 @@ int main() {
 	int pass = 'N';
 	int round = 0;
 	int bustedPlayers = 0;
-	double const MAX_AMOUNT_MONEY = 100;
+	int const MAX_AMOUNT_MONEY = 100;
+	// PUT BACK TO 1
+	int const MAX_BET_AI = 1;
 
 	BlackJackDeck gameDeck;
 	vector <Player> participant;
 	Dealer dealer;
+	ComputerPlayer robot;
+
+	
 
 	// Initialize 6 decks and shuffle.
 	for (int deck = 0; deck < 6; ++deck) {
@@ -102,31 +108,44 @@ int main() {
 
 	}
 
+	// initialize AI
+
+	participant.push_back(robot);
+	participant.at(participant.size() - 1).setWallet(MAX_AMOUNT_MONEY);
+	
+
 	// See initialize players
 
 	do {
 
 		// BEGIN ROUND
+		participant.at(participant.size() - 1).setBet(MAX_BET_AI);
 
 			cout << setfill('=') << setw(24) << "ROUND " << round + 1;
 			cout << setfill('=') << setw(16) << " " << endl;
 
 		
-			for (int check = 0; check < numPlayers; ++check) {
+			for (int check = 0; check < participant.size(); ++check) {
 
 				if (participant.at(check).getWallet() > 0) {
 				cout << "CHECKING PLAYER " << check + 1 << endl;
 				cout << "NAME " << participant.at(check).getName() << endl;
 				cout << "WALLET $" << participant.at(check).getWallet() << endl;
-				cout << "ENTER BET: $";
-				cin >> wager;
+				
+				if (check != participant.size() - 1) {
+
+					cout << "ENTER BET: $";
+					cin >> wager;
+					participant.at(check).setBet(wager);
+
+				}
 
 				if (wager < 0) {
 
 					wager = wager * -1;
 				}
 
-				participant.at(check).setBet(wager);
+				
 				}
 				else {
 
@@ -249,8 +268,8 @@ int main() {
 
 			case 'H':
 
-				cout << " Hearts" << endl;
-				break;
+cout << " Hearts" << endl;
+break;
 
 			case 'S':
 
@@ -304,7 +323,6 @@ int main() {
 
 					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
 					cout << "STATUS: BUSTED" << endl;
-					++bustedPlayers;
 				}
 
 				cout << setfill('=') << setw(41) << " " << endl;
@@ -325,14 +343,11 @@ int main() {
 		cout << dealer.getScore();
 		cout << endl;
 
+		// OBSERVE
 		for (int player = 0; player < participant.size(); ++player) {
 
 			cout << setfill('=') << setw(30) << " " << endl;
 
-			if (!(participant.at(player).getScore() > 21)) {
-
-				dealer.distBet(participant.at(player));
-			}
 
 			cout << "PLAYER " << player + 1 << " NAME: ";
 			cout << participant.at(player).getName() << endl;
@@ -344,23 +359,30 @@ int main() {
 			if (participant.at(player).getWallet() <= 0) {
 
 				cout << "PLAYER " << player + 1 << ": BANKRUPT" << endl;
-				
+
 			}
-			else if (((dealer.getScore() > participant.at(player).getScore()) || (participant.at(player).getScore() > 21)) && dealer.getScore() <= 21) {
+			else if (((dealer.getScore() > participant.at(player).getScore())
+				|| (participant.at(player).getScore() > 21)) && dealer.getScore() <= 21) {
+
+				//OBSERVE
 
 				dealer.distBet(participant.at(player));
+
+
 				cout << "DEALER WINS!" << endl;
 				cout << "PLAYER  " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
 				cout << "PLAYER  " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
-			else if (dealer.getScore() == participant.at(player).getScore() && participant.at(player).getScore() <= 21) {
+			else if (dealer.getScore() == participant.at(player).getScore() 
+				&& participant.at(player).getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "BOTH WIN!" << endl;
 				cout << "PLAYER " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
 				cout << "PLAYER " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
-			else if (dealer.getScore() < participant.at(player).getScore() && participant.at(player).getScore() <= 21) {
+			else if (dealer.getScore() < participant.at(player).getScore() 
+				&& participant.at(player).getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "PLAYER WINS!" << endl;
@@ -379,13 +401,22 @@ int main() {
 			cout << "TIE" << endl;
 			cout << "PLAYER  " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
 			cout << "PLAYER  " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
-			--bustedPlayers;
 			}
 
 
 		}
 
-		if (bustedPlayers != participant.size()) {
+		for (int player = 0; player < participant.size(); ++player) {
+
+			if (participant.at(player).getWallet() <= 0) {
+
+				++bustedPlayers;
+			}
+
+		}
+
+		if (bustedPlayers != participant.size() 
+			&& !(participant.at(participant.size() - 1).getWallet() <= 0)) {
 
 			cout << "PLAY ANOTHER ROUND? Y/N " << endl;
 			cout << ">";
@@ -402,10 +433,12 @@ int main() {
 			dealer.reset();
 		}
 
+		//participant.at(participant.size() - 1).setBet(MAX_BET_AI);
 		// playerChoice = "Stand";
 		++round;
 
-	} while ((playAgn == "Y" && participant.size() != 0) && bustedPlayers != participant.size());
+	} while ((playAgn != "N" || playAgn != "n") && bustedPlayers != participant.size());
+		//&& !(participant.at(participant.size() - 1).getWallet() <= 0));
 	
 
 	cout << setfill('=') << setw(21) << "END";

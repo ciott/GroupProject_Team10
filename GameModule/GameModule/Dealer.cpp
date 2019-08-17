@@ -33,12 +33,13 @@ void Dealer::distBet(Player& P) {
 	}
 	else if ((P.getScore() < this->getScore()) && !(this->getScore() > 21)) {
 
+		// OBSERVE
 		holdMoney = holdMoney - P.getBet();
 		P.setWallet(holdMoney);
 	}
 	else if (P.getScore() <= 21 && (this->getScore() < P.getScore() || this->getScore() > 21)) {
 
-		holdMoney = holdMoney + P.getBet();
+		holdMoney +=  2*P.getBet();
 		P.setWallet(holdMoney);
 	}
 }
@@ -58,4 +59,7 @@ void Dealer::housePlays(BlackJackDeck& aDeck) {
 
 Dealer::~Dealer()
 {
+
+
+
 }
