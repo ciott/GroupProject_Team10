@@ -21,8 +21,8 @@ int main() {
 	int numPlayers;
 	int pass = 'N';
 	int round = 0;
+	int bustedPlayers = 0;
 	double const MAX_AMOUNT_MONEY = 100;
-	int hsePot = 0;
 
 	BlackJackDeck gameDeck;
 	vector <Player> participant;
@@ -40,8 +40,8 @@ int main() {
 
 		}
 
-		cout << "DECK " << deck + 1 << endl;
-		cout << "----------------" << endl;
+		//cout << "DECK " << deck + 1 << endl;
+		//cout << "----------------" << endl;
 
 		delete deckPtr;
 	}
@@ -105,6 +105,7 @@ int main() {
 	// See initialize players
 
 	do {
+
 		// BEGIN ROUND
 
 			cout << setfill('=') << setw(24) << "ROUND " << round + 1;
@@ -303,6 +304,7 @@ int main() {
 
 					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
 					cout << "STATUS: BUSTED" << endl;
+					++bustedPlayers;
 				}
 
 				cout << setfill('=') << setw(41) << " " << endl;
@@ -377,33 +379,33 @@ int main() {
 			cout << "TIE" << endl;
 			cout << "PLAYER  " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
 			cout << "PLAYER  " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
-		}
+			--bustedPlayers;
+			}
 
 
 		}
 
-		cout << "PLAY ANOTHER ROUND? Y/N " << endl;
-		cout << ">";
-		cin >> playAgn;
+		if (bustedPlayers != participant.size()) {
 
-		
+			cout << "PLAY ANOTHER ROUND? Y/N " << endl;
+			cout << ">";
+			cin >> playAgn;
+		}
+		else {
+
+			cout << "ALL PLAYERS HAVE NO MONEY" << endl;
+		}
+
 		for (int redo = 0; redo < participant.size(); ++redo) {
 
 			participant.at(redo).reset();
 			dealer.reset();
 		}
 
-		
-
-		for (int player = 0; player < participant.size(); ++player) {
-
-			hsePot += participant.at(player).getWallet();
-		}
-
 		// playerChoice = "Stand";
 		++round;
 
-	} while ((playAgn == "Y" && participant.size() != 0) || hsePot <= 0);
+	} while ((playAgn == "Y" && participant.size() != 0) && bustedPlayers != participant.size());
 	
 
 	cout << setfill('=') << setw(21) << "END";
