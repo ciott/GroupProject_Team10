@@ -1,10 +1,10 @@
 ﻿1>------ Build started: Project: GameModule, Configuration: Debug Win32 ------
 1>GameModule.cpp
-1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(98): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
-1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(308): warning C4018: '<': signed/unsigned mismatch
-1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(360): warning C4018: '<': signed/unsigned mismatch
-1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(46): warning C4101: 'score': unreferenced local variable
-1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(48): warning C4101: 'money': unreferenced local variable
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(96): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(320): warning C4018: '<': signed/unsigned mismatch
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(384): warning C4018: '<': signed/unsigned mismatch
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(52): warning C4101: 'score': unreferenced local variable
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(54): warning C4101: 'money': unreferenced local variable
 1>GameModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\GameModule\Debug\GameModule.exe
 1>Done building project "GameModule.vcxproj".
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

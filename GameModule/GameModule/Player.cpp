@@ -154,13 +154,12 @@ string Player::getName() {
 
 void Player::reset() {
 
-	this->wallet = -1;
 	this->hand.clear();
 	this->score = 0;
 	this->bet = 0;
-	this->playerId = "-1";
 
 }
+
 
 Player::~Player()
 {

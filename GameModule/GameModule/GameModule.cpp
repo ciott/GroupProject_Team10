@@ -1,13 +1,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <ios>
+#include <stack>
+
 #include "Card.h"
 #include "BlackJackDeck.h"
 #include "Dealer.h"
 #include "Player.h"
 #include <iomanip>
-#include <ios>
-#include <stack>
+
+// Allow for a second round
+// 
+
 
 using namespace std;
 
@@ -17,6 +22,7 @@ int main() {
 	int pass = 'N';
 	int round = 0;
 	double const MAX_AMOUNT_MONEY = 100;
+	int hsePot = 0;
 
 	BlackJackDeck gameDeck;
 	vector <Player> participant;
@@ -43,6 +49,7 @@ int main() {
 	string name;
 	string surname;
 	string playerChoice = "Hit";
+	string playAgn = "N";
 	int score;
 
 	double money;
@@ -58,7 +65,7 @@ int main() {
 	while (pass != 'Y') {
 
 		cout << "Enter number of players:";
-		cout << "(Limit 10)" << endl;
+		cout << " (Limit 10)" << endl;
 		cout << ": ";
 		cin >> numPlayers;
 
@@ -66,7 +73,6 @@ int main() {
 
 			cout << "ONLY 0-10 PLAYERS ALLOWED" << endl;
 			pass = 'N';
-
 		}
 		else {
 
@@ -74,7 +80,6 @@ int main() {
 		}
 
 	}
-
 
 	// Initialize players
 	for (int player = 0; player < numPlayers; ++player) {
@@ -89,13 +94,8 @@ int main() {
 		cin >> surname;
 
 		playerPtr->setName(name, surname);
-
-
-		cout << "ENTER BET: ";
-		cin >> wager;
-
-		playerPtr->setBet(wager);
 		playerPtr->setWallet(MAX_AMOUNT_MONEY);
+
 
 		participant.push_back(*playerPtr);
 		delete playerPtr;
@@ -103,21 +103,35 @@ int main() {
 	}
 
 	// See initialize players
-	for (int check = 0; check < numPlayers; ++check) {
-
-		cout << "CHECKING PLAYER " << check + 1 << endl;
-		cout << "NAME " << participant.at(check).getName() << endl;
-		cout << "WALLET " << participant.at(check).getWallet() << endl;
-		cout << "BET " << participant.at(check).getBet() << endl;
-		cout << "SCORE " << participant.at(check).getScore() << endl;
-
-	}
 
 	do {
 		// BEGIN ROUND
 
 			cout << setfill('=') << setw(24) << "ROUND " << round + 1;
 			cout << setfill('=') << setw(16) << " " << endl;
+
+		
+			for (int check = 0; check < numPlayers; ++check) {
+
+				if (participant.at(check).getWallet() > 0) {
+				cout << "CHECKING PLAYER " << check + 1 << endl;
+				cout << "NAME " << participant.at(check).getName() << endl;
+				cout << "WALLET $" << participant.at(check).getWallet() << endl;
+				cout << "ENTER BET: $";
+				cin >> wager;
+
+				if (wager < 0) {
+
+					wager = wager * -1;
+				}
+
+				participant.at(check).setBet(wager);
+				}
+				else {
+
+					cout << "PLAYER " << check + 1 << " HAS NO MONEY" << endl;
+				}
+			}
 
 		// first distributing the cards
 		for (int player = 0; player < numPlayers; ++player) {
@@ -166,6 +180,7 @@ int main() {
 				dealer.distCards(participant.at(player), gameDeck);
 			}
 			else {
+
 
 				cout << "ERROR: NO DECKS!" << endl;
 			}
@@ -250,45 +265,48 @@ int main() {
 			cout << setfill('=') << setw(25) << "PLAYER " << turn + 1;
 			cout << setfill('=') << setw(15) << " " << endl;
 
-			while (participant.at(turn).getScore() <= 21 && playerChoice == "Hit") {
+			do {
 
+				if (!(participant.at(turn).getWallet() <= 0)) {
+					cout << "PLAYER " << turn + 1 << " HAND: " << endl;
+					participant.at(turn).seeCards();
 
-				cout << "PLAYER " << turn + 1 << " HAND: " << endl;
-				participant.at(turn).seeCards();
+					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
+					cout << "PLAYER WALLET: $" << participant.at(turn).getWallet() << endl;
+					cout << "PLAYER BET: $" << participant.at(turn).getBet() << endl;
 
-				cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
-				cout << "PLAYER WALLET: " << participant.at(turn).getWallet() << endl;
-				cout << "PLAYER BET: " << participant.at(turn).getBet() << endl;
+					cout << "Hit or Stand?" << endl;
+					cin >> playerChoice;
 
-				cout << "Hit or Stand?" << endl;
-				cin >> playerChoice;
+					cout << setfill('=') << setw(20) << " " << endl;
 
-				cout << setfill('=') << setw(20) << " " << endl;
+					if (playerChoice == "Hit" && participant.at(turn).getScore() <= 21) {
 
-				if (playerChoice == "Hit" && participant.at(turn).getScore() <= 21) {
+						dealer.distCards(participant.at(turn), gameDeck);
+					}
+					else {
 
-					dealer.distCards(participant.at(turn), gameDeck);
+						cout << "STATUS: STAND" << endl;
+					}
+
 				}
 				else {
 
-					cout << "STATUS: STAND" << endl;
+					cout << "PLAYER " << turn + 1 << ": BANKRUPT." << endl;
+					participant.at(turn).setScore(0);
+					playerChoice = "Stand";
 				}
-			}
 
-			if (participant.at(turn).getScore() > 21) {
+				if (participant.at(turn).getScore() > 21) {
 
-				participant.at(turn).seeCards();
+					participant.at(turn).seeCards();
 
-				cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
-				cout << "STATUS: BUSTED" << endl;
+					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
+					cout << "STATUS: BUSTED" << endl;
+				}
 
-				dealer.distBet(participant.at(turn));
-
-				cout << "PLAYER WALLET: " << participant.at(turn).getWallet() << endl;
-			}
-
-			cout << setfill('=') << setw(41) << " " << endl;
-			playerChoice = "Hit";
+				cout << setfill('=') << setw(41) << " " << endl;
+			} while (participant.at(turn).getScore() <= 21 && playerChoice != "Stand");
 		}
 
 		// Dealer must deal itself
@@ -321,50 +339,71 @@ int main() {
 			cout << participant.at(player).getScore();
 			cout << endl;
 
-			if (dealer.getScore() > participant.at(player).getScore() && dealer.getScore() <= 21) {
+			if (participant.at(player).getWallet() <= 0) {
+
+				cout << "PLAYER " << player + 1 << ": BANKRUPT" << endl;
+				
+			}
+			else if (((dealer.getScore() > participant.at(player).getScore()) || (participant.at(player).getScore() > 21)) && dealer.getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "DEALER WINS!" << endl;
-				cout << "PLAYER  " << player + 1 << " BET: " << participant.at(player).getBet() << endl;
-				cout << "PLAYER  " << player + 1 << " WALLET: " << participant.at(player).getWallet() << endl;
+				cout << "PLAYER  " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
+				cout << "PLAYER  " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
 			else if (dealer.getScore() == participant.at(player).getScore() && participant.at(player).getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "BOTH WIN!" << endl;
-				cout << "PLAYER " << player + 1 << " BET: " << participant.at(player).getBet() << endl;
-				cout << "PLAYER " << player + 1 << " WALLET: " << participant.at(player).getWallet() << endl;
+				cout << "PLAYER " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
+				cout << "PLAYER " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
 			else if (dealer.getScore() < participant.at(player).getScore() && participant.at(player).getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "PLAYER WINS!" << endl;
-				cout << "PLAYER " << player + 1 << " BET: " << participant.at(player).getBet() << endl;
-				cout << "PLAYER " << player + 1 << " WALLET: " << participant.at(player).getWallet() << endl;
+				cout << "PLAYER " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
+				cout << "PLAYER " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
 			else if (dealer.getScore() > 21 && participant.at(player).getScore() <= 21) {
 
 				dealer.distBet(participant.at(player));
 				cout << "PLAYER WINS!" << endl;
-				cout << "PLAYER " << player + 1 << " BET: " << participant.at(player).getBet() << endl;
-				cout << "PLAYER " << player + 1 << " WALLET: " << participant.at(player).getWallet() << endl;
+				cout << "PLAYER " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
+				cout << "PLAYER " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
 			}
+			else if (dealer.getScore() > 21 && participant.at(player).getScore() > 21) {
+
+			cout << "TIE" << endl;
+			cout << "PLAYER  " << player + 1 << " BET: $" << participant.at(player).getBet() << endl;
+			cout << "PLAYER  " << player + 1 << " WALLET: $" << participant.at(player).getWallet() << endl;
+		}
 
 
 		}
 
-		cout << "PLAY AGAIN? Y/N " << endl;
+		cout << "PLAY ANOTHER ROUND? Y/N " << endl;
 		cout << ">";
-		cin >> playerChoice;
+		cin >> playAgn;
 
+		
 		for (int redo = 0; redo < participant.size(); ++redo) {
 
 			participant.at(redo).reset();
+			dealer.reset();
 		}
 
-		++round;
-	} while (playerChoice == "Y");
+		
 
+		for (int player = 0; player < participant.size(); ++player) {
+
+			hsePot += participant.at(player).getWallet();
+		}
+
+		// playerChoice = "Stand";
+		++round;
+
+	} while ((playAgn == "Y" && participant.size() != 0) || hsePot <= 0);
 	
 
 	cout << setfill('=') << setw(21) << "END";
