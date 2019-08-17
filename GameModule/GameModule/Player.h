@@ -25,6 +25,12 @@ public:
 	double getBet();
 
 	void seeCards();
+
+	vector <Card> getHand() {
+
+		return hand;
+	}
+
 	void setName(string name, string surname);
 	string getName();
 

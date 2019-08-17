@@ -14,7 +14,6 @@
 // Allow for a second round
 // 
 
-
 using namespace std;
 
 int main() {
@@ -105,7 +104,6 @@ int main() {
 
 		participant.push_back(*playerPtr);
 		delete playerPtr;
-
 	}
 
 	// initialize AI
