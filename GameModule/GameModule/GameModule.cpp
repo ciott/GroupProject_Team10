@@ -23,6 +23,7 @@ int main() {
 	int round = 0;
 	int bustedPlayers = 0;
 	int const MAX_AMOUNT_MONEY = 100;
+	int walletAI = MAX_AMOUNT_MONEY;
 	// PUT BACK TO 1
 	int const MAX_BET_AI = 1;
 
@@ -86,6 +87,11 @@ int main() {
 
 	}
 
+	// initialize AI
+
+	robot.setBet(MAX_BET_AI);
+	robot.setWallet(walletAI);
+
 	// Initialize players
 	for (int player = 0; player < numPlayers; ++player) {
 
@@ -106,10 +112,7 @@ int main() {
 		delete playerPtr;
 	}
 
-	// initialize AI
-
-	participant.push_back(robot);
-	participant.at(participant.size() - 1).setWallet(MAX_AMOUNT_MONEY);
+	
 	
 
 	// See initialize players
@@ -117,7 +120,6 @@ int main() {
 	do {
 
 		// BEGIN ROUND
-		participant.at(participant.size() - 1).setBet(MAX_BET_AI);
 
 			cout << setfill('=') << setw(24) << "ROUND " << round + 1;
 			cout << setfill('=') << setw(16) << " " << endl;
@@ -126,11 +128,11 @@ int main() {
 			for (int check = 0; check < participant.size(); ++check) {
 
 				if (participant.at(check).getWallet() > 0) {
-				cout << "CHECKING PLAYER " << check + 1 << endl;
+				cout << "PLAYER " << check + 1 << endl;
 				cout << "NAME " << participant.at(check).getName() << endl;
 				cout << "WALLET $" << participant.at(check).getWallet() << endl;
 				
-				if (check != participant.size() - 1) {
+				if (check != participant.size()) {
 
 					cout << "ENTER BET: $";
 					cin >> wager;
@@ -152,6 +154,8 @@ int main() {
 			}
 
 		// first distributing the cards
+		
+
 		for (int player = 0; player < numPlayers; ++player) {
 
 			if (gameDeck.getSize() > 0) {
@@ -169,6 +173,8 @@ int main() {
 				cout << "ERROR: NO DECKS!" << endl;
 			}
 		}
+
+		
 
 		// First Dealer distrubes his/her own cards
 		if (gameDeck.getSize() > 0) {
@@ -203,6 +209,9 @@ int main() {
 				cout << "ERROR: NO DECKS!" << endl;
 			}
 		}
+
+		dealer.distCards(robot, gameDeck);
+		dealer.distCards(robot, gameDeck);
 
 		// Second Dealer distrubes his/her own cards
 		if (gameDeck.getSize() > 0) {
@@ -266,8 +275,8 @@ int main() {
 
 			case 'H':
 
-cout << " Hearts" << endl;
-break;
+				cout << " Hearts" << endl;
+				break;
 
 			case 'S':
 
@@ -323,6 +332,8 @@ break;
 					cout << "STATUS: BUSTED" << endl;
 				}
 
+				robot.autoPlay(dealer, gameDeck);
+
 				cout << setfill('=') << setw(41) << " " << endl;
 			} while (participant.at(turn).getScore() <= 21 && playerChoice != "Stand");
 		}
@@ -336,10 +347,7 @@ break;
 		cout << "DEALER SCORE: " << dealer.getScore() << endl;
 
 		// Dealer goes through each player and determines who wins!
-
-		cout << "DEALER SCORE: ";
-		cout << dealer.getScore();
-		cout << endl;
+		participant.push_back(robot);
 
 		// OBSERVE
 		for (int player = 0; player < participant.size(); ++player) {
@@ -433,6 +441,7 @@ break;
 
 		//participant.at(participant.size() - 1).setBet(MAX_BET_AI);
 		// playerChoice = "Stand";
+		participant.pop_back();
 		++round;
 
 	} while ((playAgn != "N" || playAgn != "n") && bustedPlayers != participant.size());

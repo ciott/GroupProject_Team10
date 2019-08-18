@@ -39,7 +39,7 @@ void Dealer::distBet(Player& P) {
 	}
 	else if (P.getScore() <= 21 && (this->getScore() < P.getScore() || this->getScore() > 21)) {
 
-		holdMoney +=  2*P.getBet();
+		holdMoney +=  P.getBet();
 		P.setWallet(holdMoney);
 	}
 }
