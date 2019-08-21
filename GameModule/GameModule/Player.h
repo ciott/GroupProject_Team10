@@ -38,10 +38,12 @@ public:
 
 	void reset();
 
+protected:
+	vector<Card> hand;
+
 private:
 
 	double wallet = 0;
-	vector<Card> hand;
 	int score = 0;
 	double bet = 0;
 	string playerId = "NOBOBY";

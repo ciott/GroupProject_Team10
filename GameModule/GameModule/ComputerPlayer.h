@@ -14,7 +14,8 @@ class ComputerPlayer : public Player
 public:
 	ComputerPlayer();
 	~ComputerPlayer();
-
+	// Source Cited
+	// https://github.com/ciott/GroupProject_Team10/blob/master/GenericPlayer.h
 	void autoPlay(Dealer& D, BlackJackDeck& deck) {
 
 		vector<Card> tempHand;
@@ -59,5 +60,6 @@ public:
 		}
 
 	}
+
 };
 

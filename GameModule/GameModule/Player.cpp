@@ -54,7 +54,6 @@ double Player::getBet() {
 
 vector<Card> Player::giveCards() {
 
-	cout << "Get card successful!" << endl;
 	return hand;
 }
 
