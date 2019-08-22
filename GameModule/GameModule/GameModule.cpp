@@ -64,7 +64,7 @@ int main() {
 	vector<Card> tempHand;
 	string tempId;
 
-	robot.setWallet(walletAI);
+	//robot.setWallet(walletAI);
 
 	cout << setfill('=') << setw(30) << "WELCOME TO BLACKJACK!";
 	cout << setfill('=') << setw(11) << " " << endl;
@@ -89,8 +89,7 @@ int main() {
 
 	}
 
-	// initialize AI
-
+	
 	
 
 	// Initialize players
@@ -113,8 +112,15 @@ int main() {
 		delete playerPtr;
 	}
 
-	
-	
+	// initialize AI
+	/*
+	robot.setWallet(walletAI);
+	robot.setBet(1);
+	robot.autoPlay(dealer, gameDeck);
+	robot.autoPlay(dealer, gameDeck);
+
+	participant.push_back(robot);
+	*/
 
 	// See initialize players
 
@@ -293,16 +299,15 @@ int main() {
 
 			do {
 
-				//FIX
-				
-
 				if (!(participant.at(turn).getWallet() <= 0)) {
+
 					cout << "PLAYER " << turn + 1 << " HAND: " << endl;
 					participant.at(turn).seeCards();
 
 					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
 					cout << "PLAYER WALLET: $" << participant.at(turn).getWallet() << endl;
 					cout << "PLAYER BET: $" << participant.at(turn).getBet() << endl;
+
 
 					cout << "Hit or Stand?" << endl;
 					cin >> playerChoice;
@@ -317,37 +322,36 @@ int main() {
 
 						cout << "STATUS: STAND" << endl;
 					}
-
-				}
-				else {
+				
+			}
+			else {
 
 					cout << "PLAYER " << turn + 1 << ": BANKRUPT." << endl;
 					participant.at(turn).setScore(0);
 					playerChoice = "Stand";
 				}
 
+				//participant.at(turn).seeCards();
 
+				// check ace
 				if (participant.at(turn).getScore() > 21) {
 
-					participant.at(turn).seeCards();
+					participant.at(turn).checkAce();
+				}
+
+				if (participant.at(turn).getScore() > 21) {
 
 					cout << "PLAYER SCORE: " << participant.at(turn).getScore() << endl;
 					cout << "STATUS: BUSTED" << endl;
 				}
+					
+					
 
-				
+			cout << setfill('=') << setw(41) << " " << endl;
 
-				cout << setfill('=') << setw(41) << " " << endl;
 			} while (participant.at(turn).getScore() <= 21 && playerChoice != "Stand");
 		}
 
-		robot.reset();
-		robot.setBet(1);
-		dealer.distCards(robot, gameDeck);
-		dealer.distCards(robot, gameDeck);
-
-		robot.autoPlay(dealer, gameDeck);
-		participant.push_back(robot);
 
 		// Dealer must deal itself
 		dealer.housePlays(gameDeck);
@@ -358,7 +362,8 @@ int main() {
 		cout << "DEALER SCORE: " << dealer.getScore() << endl;
 
 		// Dealer goes through each player and determines who wins!
-		
+		//FIX
+
 
 		// OBSERVE
 		for (int player = 0; player < participant.size(); ++player) {
@@ -382,7 +387,6 @@ int main() {
 				|| (participant.at(player).getScore() > 21)) && dealer.getScore() <= 21) {
 
 				//OBSERVE
-
 				dealer.distBet(participant.at(player));
 
 				cout << "DEALER WINS!" << endl;
@@ -426,6 +430,7 @@ int main() {
 
 			if (participant.at(player).getWallet() <= 0) {
 
+
 				++bustedPlayers;
 			}
 		}
@@ -443,7 +448,7 @@ int main() {
 			playAgn = "n";
 		}
 
-		for (int redo = 0; redo < participant.size(); ++redo) {
+		for (int redo = 0; redo < participant.size() - 1; ++redo) {
 
 			participant.at(redo).reset();
 			dealer.reset();
@@ -459,10 +464,9 @@ int main() {
 			break;
 		}
 
-		participant.pop_back();
+		// participant.pop_back();
 
-	} while (bustedPlayers != participant.size() + 1);
-		//&& !(participant.at(participant.size() - 1).getWallet() <= 0));
+	} while (bustedPlayers != participant.size());
 	
 
 	cout << setfill('=') << setw(21) << "END";

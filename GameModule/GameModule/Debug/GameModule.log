@@ -1,8 +1,8 @@
 ﻿  GameModule.cpp
-c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(129): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(364): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(426): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(447): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(369): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(429): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(451): warning C4018: '<': signed/unsigned mismatch
 c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(59): warning C4101: 'score': unreferenced local variable
 c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\gamemodule\gamemodule\gamemodule.cpp(61): warning C4101: 'money': unreferenced local variable
   GameModule.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\GameModule\Debug\GameModule.exe

@@ -21,23 +21,27 @@ double Player::getWallet() {
 	return wallet;
 }
 
-void Player::hitCards(Card aCard) {
+void Player::checkAce() {
 
-	score += aCard.getVal();
+	int card = 0;
 
-	for (int card = 0; card < hand.size(); ++card) {
+	while (score > 21 && card < hand.size()) {
 
-		if (score > 21) {
+		if (hand.at(card).getFace() == 'A' && hand.at(card).getVal() == 11) {
 
-			if (hand.at(card).getFace() == 'A' && hand.at(card).getVal() == 11) {
-
-				score -= 10;
-				hand.at(card).setVal(1);
-			}
-
+			score -= 10;
+			hand.at(card).setVal(1);
 		}
 
+		++card;
 	}
+}
+
+void Player::hitCards(Card aCard) {
+
+		
+
+	score += aCard.getVal();
 
 	hand.push_back(aCard);
 }

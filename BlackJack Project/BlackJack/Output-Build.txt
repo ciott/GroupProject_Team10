@@ -1,0 +1,8 @@
+﻿1>------ Build started: Project: BlackJack, Configuration: Debug Win32 ------
+1>Dealer.cpp
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\blackjack project\blackjack\blackjack\dealer.cpp(63): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\blackjack project\blackjack\blackjack\dealer.cpp(75): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+1>c:\users\fourb\documents\github\cis150-summer2018-ciott\groupproject_team10\blackjack project\blackjack\blackjack\dealer.cpp(85): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+1>BlackJack.vcxproj -> C:\Users\fourb\Documents\GitHub\CIS150-Summer2018-ciott\GroupProject_Team10\BlackJack Project\BlackJack\Debug\BlackJack.exe
+1>Done building project "BlackJack.vcxproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

@@ -21,6 +21,8 @@ public:
 	int getScore();
 	void setScore(int newScore);
 
+	void checkAce();
+
 	void setBet(double wager);
 	double getBet();
 
